@@ -1,0 +1,15 @@
+c:\Users\mathe\code\structure_data\bin\Debug\net8.0\structure_data.exe
+c:\Users\mathe\code\structure_data\bin\Debug\net8.0\structure_data.deps.json
+c:\Users\mathe\code\structure_data\bin\Debug\net8.0\structure_data.runtimeconfig.json
+c:\Users\mathe\code\structure_data\bin\Debug\net8.0\structure_data.dll
+c:\Users\mathe\code\structure_data\bin\Debug\net8.0\structure_data.pdb
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.AssemblyInfoInputs.cache
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.AssemblyInfo.cs
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.csproj.CoreCompileInputs.cache
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.sourcelink.json
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.dll
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\refint\structure_data.dll
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.pdb
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\structure_data.genruntimeconfig.cache
+c:\Users\mathe\code\structure_data\obj\Debug\net8.0\ref\structure_data.dll
