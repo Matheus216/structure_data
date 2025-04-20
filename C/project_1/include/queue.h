@@ -12,8 +12,8 @@ typedef struct {
 
 Queue* CreateQueue(int quantity);
 void Enqueue(Queue* queue, int value);
-void Dequeue(Queue* queue); 
-void Print(Queue* queue); 
+int Dequeue(Queue* queue); 
+int Print(Queue* queue); 
 int SearchQueue(Queue* queue, int search);
 
 #endif 

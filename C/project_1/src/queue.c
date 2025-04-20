@@ -40,10 +40,10 @@ void Enqueue(Queue* queue, int value) {
     queue->size++; 
 }
 
-void Dequeue(Queue* queue) {
+int Dequeue(Queue* queue) {
     if (queue == NULL || queue->size == 0) {
         printf("Fila inválida. \n");
-        return; 
+        return -1; 
     }
 
     int result = queue->data[queue->front];
@@ -52,4 +52,9 @@ void Dequeue(Queue* queue) {
     queue->size--;
 
     printf("dequeue item: %d\n ", result);
+    return result;
+}
+
+int Print(Queue* queue) {
+    return queue->data[queue->front];
 }

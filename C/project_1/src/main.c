@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "../include/CircularList.h"
 #include "../include/queue.h"
+#include "../include/MyStack.h"
+#include "../include/challenger_one.h"
 
 int main() {
 
@@ -43,5 +45,39 @@ int main() {
     Dequeue(queue);
 
     printf("End Queue ---------------------\n");
+
+
+    printf("--------------- Stack ----------------\n");
+
+    MyStack* myStack = myStackCreate();
+
+    myStackPush(myStack, 1);
+    myStackPush(myStack, 2);
+    myStackPush(myStack, 3);
+    myStackPush(myStack, 4);
+    myStackPush(myStack, 5);
+    myStackPush(myStack, 6);
+
+    myStackTop(myStack);
+
+    myStackPop(myStack);
+    myStackPop(myStack);
+    myStackPop(myStack);
+    myStackPop(myStack);
+    myStackPop(myStack);
+    
+    myStackEmpty(myStack);
+    
+    myStackPop(myStack);
+    
+    myStackEmpty(myStack);
+
+    myStackFree(myStack);
+
+    printf("--------------- End Stack ------------\n");
+
+
+    QueueWithStack();
+
     return 1;
 }
