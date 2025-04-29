@@ -1,61 +1,67 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "../include/stack.h"
 
 
-Stack* CreateStack(int capacity) {
-    Stack* stack = malloc(sizeof(Stack));
-
-    stack->data = malloc(sizeof(int) * capacity);
-    stack->size = 0; 
-    stack->capacity = capacity;
-
-    return stack; 
+Stack* CreateStack(int size) {
+    Stack* stack = malloc(sizeof(Stack)); 
+    stack->size = size; 
+    stack->top = NULL; 
+    return stack;
 }
 
-void Push(Stack* stack, int value) {
-    if (stack == NULL) {
-        printf("Inválida \n"); 
-        return;
-    }
+void Push(Stack* stack, void* element) {
+    NodeStack *node = malloc(sizeof(NodeStack));
 
-    if (stack->size == stack->capacity) { 
-        stack->capacity = stack->capacity * 2 + 1;
-        stack->data = realloc(stack->data, sizeof(int) * stack->capacity);
-        if (stack->data == NULL) {
-            printf("Erro to realocate memory \n");
-        } 
-    }
+    node->data = malloc(stack->size);
+    memcpy(node->data, element, stack->size);
 
-    stack->data[stack->size] = value;
-    stack->size++;
+    if (stack->top == NULL) 
+        node->next = node;
+    else
+        node->next = stack->top;
 
-    printf("Allocated: %d \n", value);
+    stack->top = node;
+
+    printf("Allocated: %d \n", element);
 }
 
-int Peek(Stack* stack) {
+NodeStack* Peek(Stack* stack) {
     if (stack == NULL || stack->size == 0 ) {
         printf("Vazia"); 
         return -1; 
     }
-    int last = stack->data[stack->size -1]; 
-    printf("Peek: %d \n", last);
+    NodeStack*  last = stack->top;
+    printf("Peek: %d \n", last->data);
     return last;
 }
 
-int Pop(Stack* stack) {
+NodeStack* Pop(Stack* stack) {
     if (stack == NULL || stack->size == 0 ) {
         printf("Vazia"); 
         return -1; 
     }
 
-    int result = stack->data[stack->size - 1]; 
-
-    stack->size--;
-
+    NodeStack* result = stack->top; 
     printf("Pop: %d \n", result);
-    return result;
+
+    if (stack->size == 1) {
+        stack->top = NULL; 
+        return result;
+    }
+    else {
+        NodeStack* temp = stack->top->next;
+
+        while (temp != result) {
+            temp = temp->next; 
+        }
+
+        temp->next = result->next;
+        stack->size--;
+        return result;
+    }
 }
 
 bool IsEmptyStack(Stack* stack) {

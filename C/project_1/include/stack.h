@@ -3,17 +3,21 @@
 #ifndef STACK_H
 #define STACK_H 
 
+typedef struct NodeStack {
+    void* data; 
+    struct NodeStack* next; 
+} NodeStack;
+
+
 typedef struct {
-    int* data;
+    NodeStack* top;
     int size;
-    int capacity;
 } Stack; 
 
-
 Stack* CreateStack(int capacity);
-void Push(Stack* stack, int value);
-int Pop(Stack* stack);
-int Peek(Stack* stack);
+void Push(Stack* stack, void* value);
+NodeStack* Pop(Stack* stack);
+NodeStack* Peek(Stack* stack);
 bool IsEmptyStack(Stack* stack);
 
 #endif

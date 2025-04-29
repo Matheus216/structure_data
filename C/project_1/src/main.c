@@ -77,7 +77,7 @@ int main() {
     printf("--------------- End Stack ------------\n");
 
 
-    QueueWithStack();
+    ProcessDuplicate();
 
     return 1;
 }
