@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 
-#ifndef REMOVE_DUPLICATE.h
-#define REMOVE_DUPLICATE.h;
+#ifndef REMOVE_DUPLICATE
+#define REMOVE_DUPLICATE
 
 
 void ProcessDuplicate();

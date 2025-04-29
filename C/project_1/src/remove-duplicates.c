@@ -4,13 +4,13 @@
 #include "../include/stack.h"
 
 
-void Process() {
+void ProcessDuplicate() {
 
     char* text = malloc(sizeof(char) * 100); 
 
     text = "abbaca";
 
-    printf(removeDuplicates(text));
+    printf("result: %s\n", removeDuplicates(text));
 
 }
 
@@ -28,5 +28,14 @@ char* removeDuplicates(char* s) {
             Push(stackResponse, s[i]);
         }
     }
-    return stackResponse;
+    char* response = malloc(sizeof(char) * stackResponse->size + 1);
+
+    int index = 0; 
+
+    while (stackResponse->size >= 1 && stackResponse->top->next != NULL) {
+        response[index] = Pop(stackResponse); 
+        index++;
+    }
+
+    return response;
 }

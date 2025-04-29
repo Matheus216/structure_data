@@ -2,10 +2,10 @@
 #include "../include/CircularList.h"
 #include "../include/queue.h"
 #include "../include/MyStack.h"
-#include "../include/challenger_one.h"
+#include "../include/remove-duplicates.h"
 
 int main() {
-
+    /*
     printf("Circular linked list ------------------");
     CircularList list; 
 
@@ -74,7 +74,7 @@ int main() {
 
     myStackFree(myStack);
 
-    printf("--------------- End Stack ------------\n");
+    printf("--------------- End Stack ------------\n");*/
 
 
     ProcessDuplicate();
