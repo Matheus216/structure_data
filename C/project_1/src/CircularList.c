@@ -3,8 +3,19 @@
 #include <stdlib.h>
 
 
+
 void Init(CircularList* list) {
+
     list->data = NULL;
+
+    Node* nill = malloc(sizeof(Node)); 
+
+    nill->next = list->data;
+    nill->previous = list->data;
+    nill->val = 0; 
+
+    list->data->next = nill;
+    list->data->previous = nill; 
 }
 
 void Include(CircularList* list, int value){
