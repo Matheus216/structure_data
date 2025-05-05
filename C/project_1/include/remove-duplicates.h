@@ -6,7 +6,7 @@
 #define REMOVE_DUPLICATE
 
 
-void ProcessDuplicate();
+void ProcessDuplicate(char* s);
 
 
 

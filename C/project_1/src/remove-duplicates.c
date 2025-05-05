@@ -3,7 +3,7 @@
 #include <string.h>
 #include "../include/stack.h"
 
-char* removeDuplicates(char* s) {
+void ProcessDuplicate(char* s) {
     Stack* stackResponse = CreateStack(1);
     Stack* stackDuplicate = CreateStack(1);
     
@@ -26,5 +26,4 @@ char* removeDuplicates(char* s) {
         index++;
     }
 
-    return response;
 }
