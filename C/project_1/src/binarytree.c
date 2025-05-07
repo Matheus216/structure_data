@@ -162,3 +162,39 @@ binarytree* insert_binary_balanced(binarytree* root, int input) {
     return root;
 }
 
+binarytree* delete_binary(binarytree *root, int input) {
+    if (root == NULL) return root; 
+
+    if (root->value == input) {
+        if (root->left != NULL  && root->right != NULL) {
+            binarytree *aux = root->left; 
+            
+            while(aux->right != NULL)
+                aux = aux->right; 
+            
+            root->value = aux->value; 
+            root->left = delete_binary(root->left, input); 
+
+            return root;
+        }
+        else {
+            binarytree *aux = root->left != NULL ? root->left : root->right;
+            free(root);
+            return aux; 
+        }
+
+    } else {
+        if (input < root->value) {
+            root->left = delete_binary(root->left, input); 
+        }
+        else {
+            root->right = delete_binary(root->right, input); 
+        }
+    }
+
+    root->height = max(height(root->left), height(root->right)) + 1; 
+
+    root = balance(root); 
+
+    return root; 
+}

@@ -53,8 +53,13 @@ int main() {
     root = insert_binary_balanced(root, 250);
     root = insert_binary_balanced(root, 150);
     root = insert_binary_balanced(root, 110);
-    
+
     print_binarytree(root, 0); 
+
+    root = delete_binary(root, 150);
+
+    print_binarytree(root, 0);
+
     free(root);
     
     return 1;

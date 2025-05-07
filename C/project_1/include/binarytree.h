@@ -18,4 +18,5 @@ binarytree* rotationRight(binarytree* tree);
 binarytree* rotationLeftRight(binarytree *tree);
 binarytree* rotationRightLeft(binarytree *tree);
 binarytree* insert_binary_balanced(binarytree* root, int input);
+binarytree* delete_binary(binarytree *root, int input);
 #endif 
