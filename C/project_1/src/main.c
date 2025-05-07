@@ -47,25 +47,16 @@ void LeetCodeProblem() {
 
 int main() {
 
-   binarytree *tree1 = createBinaryTree(1);
-   binarytree *tree2 = createBinaryTree(2);
-   binarytree *tree3 = createBinaryTree(3);
-   binarytree *tree4 = createBinaryTree(4);
-   binarytree *tree5 = createBinaryTree(5);
+    binarytree* root = createBinaryTree(200);
+    
+    insert_left(root, 100); 
+    insert_right(root->left, 150);
 
-    tree1->left = tree2; 
-    tree1->right = tree3; 
+    rotationLeftRight(root); 
+    
+    print_binarytree(root, 0); 
 
-    tree3->left = tree4;
-    tree3->right = tree5;
-
-    print_binarytree(tree1, 0);
-
-    free(tree1);
-    free(tree2);
-    free(tree3);
-    free(tree4);
-    free(tree5);
+    free(root);
     
     return 1;
 }
