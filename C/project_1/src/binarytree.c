@@ -37,8 +37,8 @@ void print_preorder_transversal(binarytree* tree) {
 
 void print_postorder_transversal(binarytree* tree) {
     if (tree == NULL) return;
-    print_preorder_transversal(tree->left); 
-    print_preorder_transversal(tree->right);
+    print_postorder_transversal(tree->left); 
+    print_postorder_transversal(tree->right);
     printf("data: %d\n", tree->value);
 }
 
@@ -83,11 +83,11 @@ short factorBalance(binarytree* tree) {
 binarytree* rotationLeft(binarytree* tree) {
     binarytree *response, *child;
 
-    response = tree->right; 
+    response = tree->right;
     child = response->left;
 
     response->left = tree; 
-    tree->left = child; 
+    tree->right = child; 
 
     tree->height = max(height(tree->left), height(tree->right)) + 1; 
     response->height = max(height(response->left),  height(response->right)) + 1; 
@@ -130,22 +130,35 @@ binarytree* balance(binarytree *root) {
     if (fb > 1 && factorBalance(root->left) < 0)
         return rotationLeftRight(root);
 
-    else if (fb < 0 && factorBalance(root->right) > 0)
+    else if (fb < -1 && factorBalance(root->right) > 0)
         return rotationRightLeft(root);
     
-    else if (fb > 0) 
+    else if (fb > 1 && factorBalance(root->left) >= 0) 
         return rotationRight(root); 
     
-    else if (fb < 0)
+    else if (fb < -1 && factorBalance(root->right) >= 0)
         return rotationLeft(root);
+    else
+        return root;
 }
 
-void insert_binary_balanced(binarytree* tree, int input) {
-    if (tree == NULL) {
-        printf("--<empty>--\n\n");
-        return; 
+binarytree* insert_binary_balanced(binarytree* root, int input) {
+    if (root == NULL) {
+        return createBinaryTree(input);
+    }
+    else {
+        if (input < root->value) {
+            root->left = insert_binary_balanced(root->left, input);
+        }
+        else {
+            root->right = insert_binary_balanced(root->right, input);
+        }
     }
 
+    root->height = max(height(root->left), height(root->right)) + 1; 
 
+    root = balance(root);
+
+    return root;
 }
 

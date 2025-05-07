@@ -48,14 +48,13 @@ void LeetCodeProblem() {
 int main() {
 
     binarytree* root = createBinaryTree(200);
-    
-    insert_left(root, 100); 
-    insert_right(root->left, 150);
 
-    rotationLeftRight(root); 
+    root = insert_binary_balanced(root, 100);
+    root = insert_binary_balanced(root, 250);
+    root = insert_binary_balanced(root, 150);
+    root = insert_binary_balanced(root, 110);
     
     print_binarytree(root, 0); 
-
     free(root);
     
     return 1;
