@@ -14,47 +14,65 @@ binarytree* createBinaryTree(int input) {
     return tree;
 }
 
-void printtab(int quantity) {
-    for (int i = 0; i < quantity; i++)
+void printtab(short quantity) {
+    for (short i = 0; i < quantity; i++)
     {
         printf("-"); 
     }
 }
 
-void print_inorder_transversal(binarytree* tree) {
+void print_inorder_transversal(binarytree* tree, short level) {
     if (tree == NULL) return;
-    print_inorder_transversal(tree->left); 
+    print_inorder_transversal(tree->left, level+1); 
+    printtab(level);
     printf("data: %d\n", tree->value);
-    print_inorder_transversal(tree->right);
+    print_inorder_transversal(tree->right, level+1);
 }
 
-void print_preorder_transversal(binarytree* tree) {
+void print_preorder_transversal(binarytree* tree, short level) {
     if (tree == NULL) return;
-    printf("data: %d\n", tree->value);
-    print_preorder_transversal(tree->left); 
-    print_preorder_transversal(tree->right);
+    printtab(level++);
+    printf("data: %d\n", tree->value, level+1);
+    print_preorder_transversal(tree->left, level+1); 
+    print_preorder_transversal(tree->right, level+1);
 }
 
-void print_postorder_transversal(binarytree* tree) {
+void print_postorder_transversal(binarytree* tree, short level) {
     if (tree == NULL) return;
-    print_postorder_transversal(tree->left); 
-    print_postorder_transversal(tree->right);
+    print_postorder_transversal(tree->left, level+1); 
+    print_postorder_transversal(tree->right, level+1);
+    printtab(level);
     printf("data: %d\n", tree->value);
 }
 
-void print_binarytree(binarytree* tree, int level) {
+void print_tree(binarytree *tree, int level) {
+    int i;
+    if (tree == NULL) return;
+    print_tree(tree->right, level+1); 
+    printf("\n\n");
+
+    for (i = 0; i < level; i++)
+        printf("\t");
+
+    printf("%d", tree->value);
+    print_tree(tree->left, level+1); 
+}
+
+void print_binarytree(binarytree* tree, short level) {
     if (tree == NULL) {
         printf("--<empty>--\n\n");
         return;
     }
     
-    print_inorder_transversal(tree);
+    print_inorder_transversal(tree, level);
     printf("\n-----------------<end inorder transversal>--------------\n\n");
     
-    print_preorder_transversal(tree);
+    level = 1; 
+    print_preorder_transversal(tree, level);
     printf("\n-----------------<end preorder transversal>--------------\n\n");
     
-    print_postorder_transversal(tree);
+    level = 1;
+    print_postorder_transversal(tree, level);
     printf("\n-----------------<end postorder transversal>--------------\n\n");
 }
 
@@ -150,8 +168,11 @@ binarytree* insert_binary_balanced(binarytree* root, int input) {
         if (input < root->value) {
             root->left = insert_binary_balanced(root->left, input);
         }
-        else {
+        else if (input > root->value) {
             root->right = insert_binary_balanced(root->right, input);
+        }
+        else {
+            printf("**Elemento não pode ser igual a um que já existe. e: %d\n", input);
         }
     }
 
@@ -163,7 +184,7 @@ binarytree* insert_binary_balanced(binarytree* root, int input) {
 }
 
 binarytree* delete_binary(binarytree *root, int input) {
-    if (root == NULL) return root; 
+    if (root == NULL || !root->value) return root; 
 
     if (root->value == input) {
         if (root->left != NULL  && root->right != NULL) {

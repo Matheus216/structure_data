@@ -47,22 +47,55 @@ void LeetCodeProblem() {
 
 int main() {
 
-    binarytree* root = createBinaryTree(200);
+    binarytree *root = NULL; 
+    int option = 0, input = 0;     
 
-    root = insert_binary_balanced(root, 100);
-    root = insert_binary_balanced(root, 250);
-    root = insert_binary_balanced(root, 150);
-    root = insert_binary_balanced(root, 110);
+    do {
+        printf("\nSelect an option: \n 0 - Exit \n 1 - Include \n 2 - Remove \n 3 - Print pre-order\n");
+        printf(" 4 - Print inorder\n 5 - Print postorder\n 6 - Print Tree\n");
+        scanf("%d", &option); 
+        
+        printf("------------\n\n");
 
-    print_binarytree(root, 0); 
+        switch (option)
+        {
+            case 0 :
+                printf("Exiting\n");
+            break;
+            case 1:
+                printf("Including..\n");
+                printf("Insira um valor:\n");
+                scanf("%d", &input);
+                printf("\n"); 
+                root = insert_binary_balanced(root, input);
+            break; 
+            case 2:
+                printf("Removing..\n");
+                printf("Insira um valor:\n");
+                scanf("%d", &input);
+                root = delete_binary(root, input);
+            case 3: 
+                printf("Printing...\n");
+                print_preorder_transversal(root, 1); 
+            break;
+            case 4:
+                printf("Printing...\n");
+                print_inorder_transversal(root, 1); 
+            break;
+             case 5: 
+                printf("Printing...\n");
+                print_postorder_transversal(root, 1);
+            case 6:
+                printf("Printing...\n"); 
+                print_tree(root, 1); 
+            break;
+            
+            default:
+                printf("Insere a valid value..\n");
+        }
+    } while (option != 0);
 
-    root = delete_binary(root, 150);
-
-    print_binarytree(root, 0);
-
-    free(root);
-    
-    return 1;
+    return -1; 
 }
 
 

@@ -10,7 +10,11 @@ typedef struct binarytree {
 
 
 binarytree* createBinaryTree(int input); 
-void print_binarytree(binarytree* tree, int level); 
+void print_binarytree(binarytree* tree, short level); 
+void print_postorder_transversal(binarytree* tree, short level);
+void print_preorder_transversal(binarytree* tree, short level);
+void print_inorder_transversal(binarytree* tree, short level);
+void print_tree(binarytree *tree, int level);
 binarytree* insert_left(binarytree* root, int input);
 binarytree* insert_right(binarytree* root, int input);
 binarytree* rotationLeft(binarytree* tree);
