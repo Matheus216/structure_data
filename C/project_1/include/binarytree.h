@@ -4,8 +4,7 @@
 typedef struct binarytree {
     int value;
     short height; 
-    struct binarytree* right;
-    struct binarytree* left; 
+    struct binarytree* right, *left;
 } binarytree;
 
 
