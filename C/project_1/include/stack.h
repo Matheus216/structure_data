@@ -4,7 +4,7 @@
 #define STACK_H 
 
 typedef struct NodeStack {
-    void* data; 
+    int data; 
     struct NodeStack* next; 
 } NodeStack;
 
@@ -15,9 +15,9 @@ typedef struct {
 } Stack; 
 
 Stack* CreateStack(int capacity);
-void Push(Stack* stack, void* value);
-NodeStack* Pop(Stack* stack);
-NodeStack* Peek(Stack* stack);
+void Push(Stack* stack, int value);
+int Pop(Stack* stack);
+int Peek(Stack* stack);
 bool IsEmptyStack(Stack* stack);
 
 #endif

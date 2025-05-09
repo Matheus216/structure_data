@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "../include/binarytree.h"
 
 binarytree* createBinaryTree(int input) {
     binarytree* tree = malloc(sizeof(binarytree));
-    if (tree != NULL) {
+    if (tree) {
         tree->left = NULL;
         tree->right = NULL;
         tree->value = input; 
@@ -22,7 +23,7 @@ void printtab(short quantity) {
 }
 
 void print_inorder_transversal(binarytree* tree, short level) {
-    if (tree == NULL) return;
+    if (!tree) return;
     print_inorder_transversal(tree->left, level+1); 
     printtab(level);
     printf("data: %d\n", tree->value);
@@ -30,15 +31,15 @@ void print_inorder_transversal(binarytree* tree, short level) {
 }
 
 void print_preorder_transversal(binarytree* tree, short level) {
-    if (tree == NULL) return;
+    if (!tree) return;
     printtab(level++);
-    printf("data: %d\n", tree->value, level+1);
+    printf("data: %d\n level: %d\n", tree->value, level+1);
     print_preorder_transversal(tree->left, level+1); 
     print_preorder_transversal(tree->right, level+1);
 }
 
 void print_postorder_transversal(binarytree* tree, short level) {
-    if (tree == NULL) return;
+    if (!tree) return;
     print_postorder_transversal(tree->left, level+1); 
     print_postorder_transversal(tree->right, level+1);
     printtab(level);
@@ -47,7 +48,7 @@ void print_postorder_transversal(binarytree* tree, short level) {
 
 void print_tree(binarytree *tree, int level) {
     int i;
-    if (tree == NULL) return;
+    if (!tree) return;
     print_tree(tree->right, level+1); 
     printf("\n\n");
 
@@ -59,7 +60,7 @@ void print_tree(binarytree *tree, int level) {
 }
 
 void print_binarytree(binarytree* tree, short level) {
-    if (tree == NULL) {
+    if (!tree) {
         printf("--<empty>--\n\n");
         return;
     }
@@ -183,8 +184,8 @@ binarytree* insert_binary_balanced(binarytree* root, int input) {
     return root;
 }
 
-binarytree* delete_binary(binarytree *root, int input) {
-    if (root == NULL || !root->value) return root; 
+binarytree* delete_binary_balanced(binarytree *root, int input) {
+    if (!root || !root->value) return root; 
 
     if (root->value == input) {
         if (root->left != NULL  && root->right != NULL) {
@@ -194,7 +195,7 @@ binarytree* delete_binary(binarytree *root, int input) {
                 aux = aux->right; 
             
             root->value = aux->value; 
-            root->left = delete_binary(root->left, input); 
+            root->left = delete_binary_balanced(root->left, input); 
 
             return root;
         }
@@ -206,10 +207,10 @@ binarytree* delete_binary(binarytree *root, int input) {
 
     } else {
         if (input < root->value) {
-            root->left = delete_binary(root->left, input); 
+            root->left = delete_binary_balanced(root->left, input); 
         }
         else {
-            root->right = delete_binary(root->right, input); 
+            root->right = delete_binary_balanced(root->right, input); 
         }
     }
 
@@ -219,3 +220,50 @@ binarytree* delete_binary(binarytree *root, int input) {
 
     return root; 
 }
+
+void insert_without_return(binarytree **root, int input) {
+    if (!*root) {
+        *root = malloc(sizeof(binarytree));
+        (*root)->value = input; // () necessário para reconhecer somente o root como ponteiro
+        (*root)->left = NULL; // () necessário para reconhecer somente o root como ponteiro
+        (*root)->right = NULL; // () necessário para reconhecer somente o root como ponteiro
+        return;
+    }
+    if (input < (*root)->value)  
+        insert_without_return(&((*root)->left), input); // passando o endereço de memória do elemento left
+    else
+        insert_without_return(&((*root)->right), input);
+}
+
+bool setValue(binarytree **aux, int input) {
+    if (!*aux) {
+        *aux = createBinaryTree(input);
+        return true; 
+    }
+    return false;
+}
+
+void insertWithoutRecursion(binarytree **root, int input) {
+    if (!*root) {
+        *root = createBinaryTree(input);
+        return;
+    }
+
+    binarytree *aux = *root; 
+
+    do {
+        if (input < aux->value) {
+            if (setValue(&aux->left, input)) return;
+            aux = aux->left; 
+        }
+        else if (input > aux->value) {
+            if (setValue(&aux->right, input)) return; 
+            aux = aux->right;
+        }
+        else {
+            printf("this number exist in tree.\n");
+            return;
+        }
+    } while(aux);
+}
+

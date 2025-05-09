@@ -22,7 +22,7 @@ void ProcessDuplicate(char* s) {
     int index = 0; 
 
     while (stackResponse->size >= 1 && stackResponse->top->next != NULL) {
-        response[index] = Pop(stackResponse)->data; 
+        response[index] = Pop(stackResponse); 
         index++;
     }
 

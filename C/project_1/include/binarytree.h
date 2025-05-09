@@ -21,5 +21,7 @@ binarytree* rotationRight(binarytree* tree);
 binarytree* rotationLeftRight(binarytree *tree);
 binarytree* rotationRightLeft(binarytree *tree);
 binarytree* insert_binary_balanced(binarytree* root, int input);
-binarytree* delete_binary(binarytree *root, int input);
+binarytree* delete_binary_balanced(binarytree *root, int input);
+void insert_without_return(binarytree **root, int input);
+void insertWithoutRecursion(binarytree **root, int input);
 #endif 

@@ -12,11 +12,10 @@ Stack* CreateStack(int size) {
     return stack;
 }
 
-void Push(Stack* stack, void* element) {
+void Push(Stack* stack, int element) {
     NodeStack *node = malloc(sizeof(NodeStack));
 
-    node->data = malloc(stack->size);
-    memcpy(node->data, element, stack->size);
+    node->data = element; 
 
     if (stack->top == NULL) 
         node->next = node;
@@ -28,28 +27,29 @@ void Push(Stack* stack, void* element) {
     printf("Allocated: %d \n", element);
 }
 
-NodeStack* Peek(Stack* stack) {
+int Peek(Stack* stack) {
     if (stack == NULL || stack->size == 0 ) {
         printf("Vazia"); 
-        return -1; 
+        return -1;
     }
+    
     NodeStack*  last = stack->top;
     printf("Peek: %d \n", last->data);
-    return last;
+    return last->data;
 }
 
-NodeStack* Pop(Stack* stack) {
+int Pop(Stack* stack) {
     if (stack == NULL || stack->size == 0 ) {
         printf("Vazia"); 
-        return -1; 
+        return -1;
     }
 
     NodeStack* result = stack->top; 
-    printf("Pop: %d \n", result);
+    printf("Pop: %d \n", result->data);
 
     if (stack->size == 1) {
         stack->top = NULL; 
-        return result;
+        return result->data;
     }
     else {
         NodeStack* temp = stack->top->next;
@@ -60,7 +60,7 @@ NodeStack* Pop(Stack* stack) {
 
         temp->next = result->next;
         stack->size--;
-        return result;
+        return result->data;
     }
 }
 

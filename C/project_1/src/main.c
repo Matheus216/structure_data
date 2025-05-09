@@ -53,6 +53,7 @@ int main() {
     do {
         printf("\nSelect an option: \n 0 - Exit \n 1 - Include \n 2 - Remove \n 3 - Print pre-order\n");
         printf(" 4 - Print inorder\n 5 - Print postorder\n 6 - Print Tree\n");
+        printf(" 7 - Insert without recursive way\n");
         scanf("%d", &option); 
         
         printf("------------\n\n");
@@ -73,7 +74,7 @@ int main() {
                 printf("Removing..\n");
                 printf("Insira um valor:\n");
                 scanf("%d", &input);
-                root = delete_binary(root, input);
+                root = delete_binary_balanced(root, input);
             case 3: 
                 printf("Printing...\n");
                 print_preorder_transversal(root, 1); 
@@ -85,11 +86,18 @@ int main() {
              case 5: 
                 printf("Printing...\n");
                 print_postorder_transversal(root, 1);
+              break;
             case 6:
                 printf("Printing...\n"); 
                 print_tree(root, 1); 
             break;
-            
+            case 7:
+                printf("Including..\n");
+                printf("Insira um valor:\n");
+                scanf("%d", &input);
+                printf("\n"); 
+                insertWithoutRecursion(&root, input); 
+            break;
             default:
                 printf("Insere a valid value..\n");
         }
