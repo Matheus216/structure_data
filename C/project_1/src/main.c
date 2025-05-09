@@ -53,7 +53,7 @@ int main() {
     do {
         printf("\nSelect an option: \n 0 - Exit \n 1 - Include \n 2 - Remove \n 3 - Print pre-order\n");
         printf(" 4 - Print inorder\n 5 - Print postorder\n 6 - Print Tree\n");
-        printf(" 7 - Insert without recursive way\n");
+        printf(" 7 - Insert without recursive way\n 8 - Search Recursive\n 9 - Search\n ");
         scanf("%d", &option); 
         
         printf("------------\n\n");
@@ -97,6 +97,22 @@ int main() {
                 scanf("%d", &input);
                 printf("\n"); 
                 insertWithoutRecursion(&root, input); 
+            break;
+            case 8: 
+                printf("Searching...\n");
+                printf("Insira o valor que deseja encontrar: ");
+                scanf("%d", &input);
+                binarytree* response = searchRecursive(root, input);
+                if (response == NULL) printf("Valor não encontrado\n");
+                else printf("\nValor encontrado: %d", response->value);
+            break;
+            case 9: 
+                printf("Searching...\n");
+                printf("Insira o valor que deseja encontrar: ");
+                scanf("%d", &input);
+                binarytree* response2 = search(root, input);
+                if (response2 == NULL) printf("Valor não encontrado\n");
+                else printf("\nValor encontrado: %d", response->value);
             break;
             default:
                 printf("Insere a valid value..\n");

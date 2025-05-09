@@ -248,9 +248,7 @@ void insertWithoutRecursion(binarytree **root, int input) {
         *root = createBinaryTree(input);
         return;
     }
-
     binarytree *aux = *root; 
-
     do {
         if (input < aux->value) {
             if (setValue(&aux->left, input)) return;
@@ -267,3 +265,16 @@ void insertWithoutRecursion(binarytree **root, int input) {
     } while(aux);
 }
 
+binarytree* searchRecursive(binarytree *root, int search) { 
+    if (!root) return NULL;  
+    if (root->value == search) return root; 
+    return (search < root->value)  
+        ? searchRecursive(root->left, search) 
+        : searchRecursive(root->right, search); 
+}
+
+binarytree* search(binarytree *root, int search) {
+    while(root && root->value != search) 
+        root = (search < root->value) ? root->left : root->right;
+    return root;
+}

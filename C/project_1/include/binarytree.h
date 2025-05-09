@@ -24,4 +24,6 @@ binarytree* insert_binary_balanced(binarytree* root, int input);
 binarytree* delete_binary_balanced(binarytree *root, int input);
 void insert_without_return(binarytree **root, int input);
 void insertWithoutRecursion(binarytree **root, int input);
+binarytree* searchRecursive(binarytree *root, int search);
+binarytree* search(binarytree *root, int search);
 #endif 
