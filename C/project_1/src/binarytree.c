@@ -48,7 +48,7 @@ void print_postorder_transversal(binarytree* tree, short level) {
 
 void print_tree(binarytree *tree, int level) {
     int i;
-    if (!tree) return;
+    if (tree == NULL) return;
     print_tree(tree->right, level+1); 
     printf("\n\n");
 
@@ -87,7 +87,7 @@ binarytree* insert_right(binarytree* root, int input) {
     return root->right;
 }
 
-short height(binarytree* tree) {
+short getHeight(binarytree* tree) {
     return (tree == NULL) ? -1 : tree->height; 
 }
 
@@ -96,7 +96,7 @@ int max(int compare, int compareTo) {
 }
 
 short factorBalance(binarytree* tree) {
-    return (tree == NULL) ? 0 : height(tree->left) - height(tree->right);  
+    return (tree == NULL) ? 0 : getHeight(tree->left) - getHeight(tree->right);  
 }
 
 binarytree* rotationLeft(binarytree* tree) {
@@ -108,8 +108,8 @@ binarytree* rotationLeft(binarytree* tree) {
     response->left = tree; 
     tree->right = child; 
 
-    tree->height = max(height(tree->left), height(tree->right)) + 1; 
-    response->height = max(height(response->left),  height(response->right)) + 1; 
+    tree->height = max(getHeight(tree->left), getHeight(tree->right)) + 1; 
+    response->height = max(getHeight(response->left),  getHeight(response->right)) + 1; 
     
     return response; 
 }
@@ -127,8 +127,8 @@ binarytree* rotationRight(binarytree  *tree) {
     if (child != NULL)
         printf("redirecionando elemento filho: %d para a esqueda do elemento: %d\n", child->value, tree->value);
 
-    tree->height = max(height(tree->left), height(tree->right)) + 1; 
-    response->height = max(height(response->left), height(response->right)) + 1; 
+    tree->height = max(getHeight(tree->left), getHeight(tree->right)) + 1; 
+    response->height = max(getHeight(response->left), getHeight(response->right)) + 1; 
 
     return response;
 }
@@ -177,7 +177,7 @@ binarytree* insert_binary_balanced(binarytree* root, int input) {
         }
     }
 
-    root->height = max(height(root->left), height(root->right)) + 1; 
+    root->height = max(getHeight(root->left), getHeight(root->right)) + 1; 
 
     root = balance(root);
 
@@ -214,7 +214,7 @@ binarytree* delete_binary_balanced(binarytree *root, int input) {
         }
     }
 
-    root->height = max(height(root->left), height(root->right)) + 1; 
+    root->height = max(getHeight(root->left), getHeight(root->right)) + 1; 
 
     root = balance(root); 
 
@@ -277,4 +277,94 @@ binarytree* search(binarytree *root, int search) {
     while(root && root->value != search) 
         root = (search < root->value) ? root->left : root->right;
     return root;
+}
+
+int calcHeight(binarytree *root) {
+    if (root) {
+        int esq = calcHeight(root->left);
+        int right = calcHeight(root->right);
+        return (esq > right) ? esq + 1 : right + 1;
+    }
+    return -1;
+} 
+
+int calcHeightNotRecursive(binarytree *root) {
+    int height = -1; 
+    int heightRight = -1; 
+    binarytree *right = root; 
+    while(root) {
+        height++;  
+        root = root->left; 
+    }
+    while(right) { 
+        heightRight++; 
+        right = right->right;
+    }
+    return height > heightRight ? height : heightRight; 
+}
+
+int calcNode(binarytree *root) { 
+    return (root) ? (calcNode(root->left) + calcNode(root->right)) + 1 : 0;
+}
+
+int calcSheet(binarytree *root) {
+    if (root == NULL) return 0; 
+    return (root->left == NULL && root->right == NULL) 
+        ? 1 
+        : calcSheet(root->left) + calcSheet(root->right);
+}
+
+binarytree* removeNodeTree(binarytree* root, int search) {
+    if (root) {
+        if (root->value == search) {
+            if (root->left == NULL && root->right == NULL)  {
+                free(root);
+                return NULL;
+            }
+            else if (root->left == NULL || root->right == NULL) {
+                binarytree *aux = root->left ? root->left : root->right;
+                free(root); 
+                return aux; 
+            }
+            binarytree *aux = root; 
+            while (aux->right)
+                aux = aux->right; 
+            root->value = aux->value; 
+            free(aux);
+            return root;
+        }
+        if (search < root->value)
+            root->left = removeNodeTree(root->left, search);
+        else 
+            root->right = removeNodeTree(root->right, search);
+            
+        return root; 
+    }
+    printf("Valor: %d não encontrado\n", search);
+    return NULL;
+}
+
+void removeNodeTreeNotRecursive(binarytree *root, int search) { 
+    if (root) {
+        binarytree *right = root->right; 
+        while(root && root->value != search) 
+            root = root->left; 
+        if (root == NULL) {
+            root = right;
+            while (root && root->value != search)
+                root = root->right; 
+        }
+        if (root == NULL) { printf("Valor: %d não exite na arvore\n", search);return; }
+        if (root->left == NULL && root->right == NULL) {
+            free(root);
+            printf("Valor: %d removido", search);
+            return; 
+        }
+        else if (root->left && root->right == NULL) {
+            return; 
+        }
+        return;
+    }
+
+    printf("Valor: %d não encontrado\n", search);
 }

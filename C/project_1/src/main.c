@@ -53,7 +53,11 @@ int main() {
     do {
         printf("\nSelect an option: \n 0 - Exit \n 1 - Include \n 2 - Remove \n 3 - Print pre-order\n");
         printf(" 4 - Print inorder\n 5 - Print postorder\n 6 - Print Tree\n");
-        printf(" 7 - Insert without recursive way\n 8 - Search Recursive\n 9 - Search\n ");
+        printf(" 7 - Insert without recursive way\n 8 - Search Recursive\n 9 - Search\n");
+        printf(" 10 - Height\n");
+        printf(" 11 - Calcule Nodes\n");
+        printf(" 12 - Calcule Sheets\n");
+        printf(" 13 - Remove node\n");
         scanf("%d", &option); 
         
         printf("------------\n\n");
@@ -112,7 +116,26 @@ int main() {
                 scanf("%d", &input);
                 binarytree* response2 = search(root, input);
                 if (response2 == NULL) printf("Valor não encontrado\n");
-                else printf("\nValor encontrado: %d", response->value);
+                else printf("\nValor encontrado: %d", response2->value);
+            break;
+            case 10:
+                printf("calcuating height\n");
+                printf("height: %d \n", calcHeightNotRecursive(root));
+            break; 
+            case 11:
+                printf("calculating nodes\n"); 
+                printf("Nodes: %d\n", calcNode(root)); 
+            break; 
+            case 12:
+                printf("calculating sheets\n"); 
+                printf("Sheets: %d\n", calcSheet(root)); 
+            break;
+            case 13: 
+                printf("Removing...\n");
+                printf("Insira o valor que deseja remover: ");
+                scanf("%d", &input);
+                root = removeNodeTree(root, input);
+                if (root) printf("Valor: %d removido\n", input);
             break;
             default:
                 printf("Insere a valid value..\n");

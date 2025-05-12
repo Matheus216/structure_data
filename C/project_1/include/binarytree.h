@@ -26,4 +26,9 @@ void insert_without_return(binarytree **root, int input);
 void insertWithoutRecursion(binarytree **root, int input);
 binarytree* searchRecursive(binarytree *root, int search);
 binarytree* search(binarytree *root, int search);
+int calcHeight(binarytree *root);
+int calcHeightNotRecursive(binarytree *root);
+int calcNode(binarytree *root);
+int calcSheet(binarytree *root);
+binarytree* removeNodeTree(binarytree* root, int search);
 #endif 
