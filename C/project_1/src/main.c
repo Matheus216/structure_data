@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "../include/binarytree.h"
+#include "../include/huffman.h"
 
 int* twoSum(int* nums, int numsSize, int target) {
     int* response = malloc(sizeof(int) * 2); 
@@ -46,7 +48,7 @@ void LeetCodeProblem() {
 }
 
 int main() {
-
+    setlocale(LC_ALL, "Portuguese");
     binarytree *root = NULL; 
     int option = 0, input = 0;     
 
@@ -66,6 +68,7 @@ int main() {
         printf(" 11 - Calcule Nodes\n");
         printf(" 12 - Calcule Sheets\n");
         printf(" 13 - Remove node\n");
+        printf(" 14 - Huffman\n");
         scanf("%d", &option); 
         
         printf("------------\n\n");
@@ -145,8 +148,13 @@ int main() {
                 binarytree *response3 = removeNodeTree(root, input);
                 if (response3) printf("Valor: %d removido\n", input);
             break;
+            case 14:
+                printf("compacting..\n");
+                compact();
+            break;
             default:
                 printf("Insere a valid value..\n");
+            break;
         }
     } while (option != 0);
 
