@@ -326,11 +326,12 @@ binarytree* removeNodeTree(binarytree* root, int search) {
                 free(root); 
                 return aux; 
             }
-            binarytree *aux = root; 
+            binarytree *aux = root->left; 
             while (aux->right)
                 aux = aux->right; 
-            root->value = aux->value; 
-            free(aux);
+            root->value = aux->value;
+            aux->value = search; 
+            root->left = removeNodeTree(root->left, search);
             return root;
         }
         if (search < root->value)
@@ -344,26 +345,31 @@ binarytree* removeNodeTree(binarytree* root, int search) {
     return NULL;
 }
 
-void removeNodeTreeNotRecursive(binarytree *root, int search) { 
+binarytree* removeNodeTreeNotRecursive(binarytree *rootMain, int search) { 
+    binarytree *root = rootMain;
     if (root) {
-        binarytree *right = root->right; 
-        while(root && root->value != search) 
+        binarytree *right = root->right;
+        binarytree *old = root;
+        while(root && root->value != search) {
+            old = root; 
             root = root->left; 
+        }
         if (root == NULL) {
             root = right;
-            while (root && root->value != search)
+            while (root && root->value != search){
+                old = root;
                 root = root->right; 
+            }
         }
-        if (root == NULL) { printf("Valor: %d não exite na arvore\n", search);return; }
+        if (root == NULL) { printf("Valor: %d não exite na arvore\n", search);return NULL; }
         if (root->left == NULL && root->right == NULL) {
             free(root);
             printf("Valor: %d removido", search);
-            return; 
         }
         else if (root->left && root->right == NULL) {
-            return; 
+            old->left = root->left;
         }
-        return;
+        return rootMain;
     }
 
     printf("Valor: %d não encontrado\n", search);

@@ -51,9 +51,17 @@ int main() {
     int option = 0, input = 0;     
 
     do {
-        printf("\nSelect an option: \n 0 - Exit \n 1 - Include \n 2 - Remove \n 3 - Print pre-order\n");
-        printf(" 4 - Print inorder\n 5 - Print postorder\n 6 - Print Tree\n");
-        printf(" 7 - Insert without recursive way\n 8 - Search Recursive\n 9 - Search\n");
+        printf("\nSelect an option: \n"); 
+        printf(" 0 - Exit \n");
+        printf(" 1 - Include \n");
+        printf(" 2 - Remove \n");
+        printf(" 3 - Print pre-order\n");
+        printf(" 4 - Print inorder\n"); 
+        printf(" 5 - Print postorder\n");
+        printf(" 6 - Print Tree\n");
+        printf(" 7 - Insert without recursive way\n");
+        printf(" 8 - Search Recursive\n");
+        printf(" 9 - Search\n");
         printf(" 10 - Height\n");
         printf(" 11 - Calcule Nodes\n");
         printf(" 12 - Calcule Sheets\n");
@@ -134,8 +142,8 @@ int main() {
                 printf("Removing...\n");
                 printf("Insira o valor que deseja remover: ");
                 scanf("%d", &input);
-                root = removeNodeTree(root, input);
-                if (root) printf("Valor: %d removido\n", input);
+                binarytree *response3 = removeNodeTree(root, input);
+                if (response3) printf("Valor: %d removido\n", input);
             break;
             default:
                 printf("Insere a valid value..\n");
