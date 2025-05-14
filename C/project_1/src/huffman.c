@@ -77,6 +77,46 @@ void printListNode(ListNode *list) {
     }
 }
 
+// -- montar arvore de huffman
+Node* removeItemList(ListNode *list) {
+    Node* aux;
+    if (list->root) {
+        aux = list->root;
+        list->root = aux->next;
+        aux->next = NULL;
+        list->tam--;
+    }
+    return aux;
+}
+
+Node* createHoffmanTree(ListNode *list) {
+    if (list->root) {
+            Node *first, *second, *response; 
+            while (list->tam > 1) {
+
+                first = removeItemList(list);
+                second = removeItemList(list);
+
+                response = malloc(sizeof(Node));
+                response->frequency = first->frequency + second->frequency;
+                response->caracter = '+';
+                response->left = first;
+                response->right = second;
+                insertListNode(response, list);
+            }
+    }
+    return list->root;
+}
+
+void printHoffmanTree(Node *node, int level) {
+    if (node) {
+        printHoffmanTree(node->left, level+1); 
+        if(!node->left && !node->right)
+            printf("\nFrequency: %d Caracter: %c", node->frequency, node->caracter);
+        printHoffmanTree(node->right, level + 1);    
+    }
+} 
+
 void compact() {
     unsigned char textToCompact[] = "Let's learn program"; 
     unsigned int frequencyTable[TAM]; 
@@ -91,4 +131,8 @@ void compact() {
     createListNode(&root);
     fillListNode(frequencyTable, &root);
     printListNode(&root);
+
+    Node *tree = createHoffmanTree(&root);
+    printf("\n*** Arvore de Huffman ***\n");
+    printHoffmanTree(tree, 0); 
 }
