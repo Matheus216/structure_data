@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 #include "../include/huffman.h"
 
@@ -117,22 +118,73 @@ void printHoffmanTree(Node *node, int level) {
     }
 } 
 
+int getHeightHuffman(Node *root) { 
+    if (!root) return -1;
+    int esq, dir;
+    esq = getHeightHuffman(root->left) + 1;
+    dir = getHeightHuffman(root->right) + 1;
+    return esq > dir ? esq : dir; 
+}
+
+char** allocDicionary(int cols) {
+    char **dic = malloc(sizeof(char*) * TAM); 
+    for (int i=0; i<TAM; i++) {
+        dic[i] = calloc(cols,sizeof(char*)); 
+    }
+    return dic; 
+}
+
+void addDicionary(Node *root, char **dic, char *binaryText, int cols) {
+
+    if (root->left || root->right) {
+        char esq[cols], rig[cols]; 
+
+        strcpy(esq, binaryText);
+        strcpy(rig, binaryText);
+
+        strcat(esq, "0");
+        strcat(rig, "1");
+
+        addDicionary(root->left, dic, esq, cols); 
+        addDicionary(root->right, dic, rig, cols);
+    }   
+    strcpy(dic[root->caracter], binaryText);
+}
+
+void printDicionary(char **dic) {
+    printf("\nDictionary: \n");
+    for (int i=0;i<TAM;i++)
+        printf("\n%3d - %s", i, dic[i]);
+}
+
 void compact() {
     unsigned char textToCompact[] = "Let's learn program"; 
     unsigned int frequencyTable[TAM]; 
+    char **dic; 
     
     setlocale(LC_ALL, "Portuguese");
 
     ListNode root;
 
+    //Part 1
     initializerTable(frequencyTable);
     fillFrequencyTable(frequencyTable, textToCompact);
     printFrequencyTable(frequencyTable);
+    
+    //Part 2
     createListNode(&root);
     fillListNode(frequencyTable, &root);
     printListNode(&root);
 
+    //Part 3
     Node *tree = createHoffmanTree(&root);
     printf("\n*** Arvore de Huffman ***\n");
     printHoffmanTree(tree, 0); 
+
+    //Part 4
+    int cols = getHeightHuffman(tree);
+    dic = allocDicionary(cols); 
+    addDicionary(tree, dic, "", cols);
+    printDicionary(dic);
+
 }
