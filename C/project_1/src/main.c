@@ -150,7 +150,7 @@ int main() {
             break;
             case 14:
                 printf("compacting..\n");
-                compact();
+                hoffman();
             break;
             default:
                 printf("Insere a valid value..\n");

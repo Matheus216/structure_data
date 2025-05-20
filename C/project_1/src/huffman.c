@@ -218,8 +218,35 @@ char* decode(unsigned char textCoding[], Node *node) {
     return response;
 }
 
-void compact() {
-    unsigned char textToCompact[] = "Lets lear~çan prógram"; 
+void compact(unsigned char *input) {
+    FILE *file = fopen("compacted.mm", "wb"); 
+    if (!file) return; 
+
+    int index = 0, j = 7; 
+    unsigned char mascara, byte = 0; 
+
+    while (input[index] != '\0') {
+        if (input[index] == '1') {
+            mascara = mascara << j; 
+            byte = byte | mascara; 
+        }
+        j--; 
+        if (j < 0) {
+            fwrite(&byte, sizeof(unsigned char), 1, file);
+            j = 7;
+            byte = 0; 
+        }
+        index++; 
+    }
+
+    if (j != 7) 
+        fwrite(&byte, sizeof(unsigned char), 1, file);
+
+    fclose(file);
+}
+
+void hoffman() {
+    unsigned char textToCompact[] = "Lets learn program"; 
     unsigned int frequencyTable[TAM]; 
     char **dic; 
     

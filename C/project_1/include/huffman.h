@@ -14,7 +14,7 @@ typedef struct ListNode {
     int tam;
 } ListNode;
 
-void compact();
+void hoffman();
 
 #endif
 
