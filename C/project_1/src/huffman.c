@@ -113,7 +113,7 @@ void printHoffmanTree(Node *node, int level) {
     if (node) {
         printHoffmanTree(node->left, level+1); 
         if(!node->left && !node->right)
-            printf("\nFrequency: %d Caracter: %c", node->frequency, node->caracter);
+            printf("Frequency: %d Caracter: %c\n", node->frequency, node->caracter);
         printHoffmanTree(node->right, level + 1);    
     }
 } 
@@ -154,11 +154,72 @@ void addDicionary(Node *root, char **dic, char *binaryText, int cols) {
 void printDicionary(char **dic) {
     printf("\nDictionary: \n");
     for (int i=0;i<TAM;i++)
-        printf("\n%3d - %s", i, dic[i]);
+        if (strlen(dic[i]) > 0)
+            printf("%3d - %s\n", i, dic[i]);
+}
+
+int calcLen(unsigned char *text, char **dic) {
+    if(!text) {
+        printf("invalid text in calcLen function");
+        return 0;   
+    } 
+
+    int index = 0, tam = 0; 
+    while(text[index] != '\0'){
+        tam += strlen(dic[text[index]]); 
+        index++;
+    }
+    return tam + 1; 
+}
+
+char* coding( 
+    unsigned char *text, 
+    char **dic
+) {
+    if (!text) {
+        printf("text invalid in coding function");
+        return "error";
+    }
+    int i = 0, tam = calcLen(text, dic);
+    char *response = calloc(tam, sizeof(char)); 
+    printf("\nCoding:\n");
+    while (text[i] != '\0') {
+        strcat(response, dic[text[i]]); 
+        i++;
+    }
+    printf("\n");
+
+    return response;
+}
+
+char* decode(unsigned char textCoding[], Node *node) {
+    
+    printf("\nDecoding:\n");
+    int index = 0;
+    char tempStr[2];
+    tempStr[1] = '\0';
+
+    char *response = calloc(strlen(textCoding), sizeof(char));
+    Node *temp = node;
+    while (textCoding[index] != '\0') {
+        if (textCoding[index] == '0')
+            temp = temp->left;
+        else
+            temp = temp->right;
+
+        if (!temp->left && !temp->right) {
+            tempStr[0] = temp->caracter;
+            strcat(response, tempStr);
+            temp = node;
+        }
+        index++;
+    }
+    printf("%s\n", response);
+    return response;
 }
 
 void compact() {
-    unsigned char textToCompact[] = "Let's learn program"; 
+    unsigned char textToCompact[] = "Lets lear~çan prógram"; 
     unsigned int frequencyTable[TAM]; 
     char **dic; 
     
@@ -166,25 +227,31 @@ void compact() {
 
     ListNode root;
 
-    //Part 1
+    //Part 1 tabela de frequencia
     initializerTable(frequencyTable);
     fillFrequencyTable(frequencyTable, textToCompact);
     printFrequencyTable(frequencyTable);
     
-    //Part 2
+    //Part 2 montar tabela
     createListNode(&root);
     fillListNode(frequencyTable, &root);
     printListNode(&root);
 
-    //Part 3
+    //Part 3 montar arvore
     Node *tree = createHoffmanTree(&root);
     printf("\n*** Arvore de Huffman ***\n");
     printHoffmanTree(tree, 0); 
 
-    //Part 4
+    //Part 4 montar dicionario
     int cols = getHeightHuffman(tree);
     dic = allocDicionary(cols); 
     addDicionary(tree, dic, "", cols);
     printDicionary(dic);
 
+    //parte 5 coding 
+    char *codingText = coding(textToCompact, dic);
+    printf("\n Coding text: %s\n", codingText);
+
+    //parte 6 decode
+    char *responseDecode = decode(codingText, tree);
 }
