@@ -214,11 +214,10 @@ char* decode(unsigned char textCoding[], Node *node) {
         }
         index++;
     }
-    printf("%s\n", response);
     return response;
 }
 
-void compact(unsigned char *input) {
+void compact(unsigned char input[]) {
     FILE *file = fopen("compacted.mm", "wb"); 
     if (!file) return; 
 
@@ -226,6 +225,7 @@ void compact(unsigned char *input) {
     unsigned char mascara, byte = 0; 
 
     while (input[index] != '\0') {
+        mascara = 1;
         if (input[index] == '1') {
             mascara = mascara << j; 
             byte = byte | mascara; 
@@ -245,10 +245,90 @@ void compact(unsigned char *input) {
     fclose(file);
 }
 
+int isBitOne(unsigned char input, int count) {
+    unsigned char mask = input << count; 
+    return input & mask; 
+}
+
+void descompact(Node *root) {
+    FILE *file = fopen("compacted.mm", "rb"); 
+
+    if (!file) {
+        printf("\n Erro ao ler arquivo para descompactar\n");
+        return;
+    }
+
+    unsigned char byte; 
+    Node *aux = root; 
+
+    while (fread(&byte, sizeof(unsigned char), 1, file)) {
+        for (int i = 0; i < 7; i++) {
+            if (isBitOne(byte, i)) 
+                aux = aux->right;    
+            else 
+                aux = aux->left;
+
+            if (aux->left == NULL && aux->right == NULL) {
+                printf("%c", aux->caracter); 
+                aux = root;
+            }
+        }
+    }
+    fclose(file);
+    printf("\nFinalizado processo do arquivo\n");
+}
+
+int countFile() {
+    FILE *file = fopen("input.txt", "r");
+    int len = 0; 
+
+    if (!file) {
+        printf("\nError to open file input.txt\n");
+        return len;
+    }
+
+    while (getc(file) > 0) 
+        len++;
+    
+    fclose(file);
+        
+    return len; 
+}
+
+void readFile(unsigned char *text) {
+    if (!text) {
+        printf("\ninválid text input\n");
+        return;
+    }
+    
+    FILE *file = fopen("input.txt", "r"); 
+    char letter; 
+    int i = 0;
+    
+    if (!file) {
+        printf("\nError to open file input.txt\n");
+        return;
+    }
+    
+    while (!feof(file)) {
+        letter = fgetc(file);
+        if (letter >= 0) 
+            text[i++] = letter;
+        
+    }
+    fclose(file); 
+}
+
 void hoffman() {
-    unsigned char textToCompact[] = "Lets learn program"; 
     unsigned int frequencyTable[TAM]; 
     char **dic; 
+    int count = countFile();
+    printf("\nQuantidade = %d\n", count);
+    unsigned char *textToCompact = calloc(count + 2, sizeof(char));
+    
+    readFile(textToCompact);
+
+    printf("\nContent: %s\n", textToCompact);
     
     setlocale(LC_ALL, "Portuguese");
 
@@ -277,8 +357,17 @@ void hoffman() {
 
     //parte 5 coding 
     char *codingText = coding(textToCompact, dic);
-    printf("\n Coding text: %s\n", codingText);
 
     //parte 6 decode
     char *responseDecode = decode(codingText, tree);
+
+    //parte 7 compact text file
+    compact(codingText); 
+
+    // part 8 descompact file
+    descompact(tree);
+
+    free(textToCompact); 
+    free(codingText); 
+    free(responseDecode);
 }
