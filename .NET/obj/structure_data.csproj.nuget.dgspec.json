@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\mathe\\code\\structure_data\\structure_data.csproj": {}
+    "/home/m2dev/Documents/code/structure_data/.NET/structure_data.csproj": {}
   },
   "projects": {
-    "c:\\Users\\mathe\\code\\structure_data\\structure_data.csproj": {
+    "/home/m2dev/Documents/code/structure_data/.NET/structure_data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\mathe\\code\\structure_data\\structure_data.csproj",
+        "projectUniqueName": "/home/m2dev/Documents/code/structure_data/.NET/structure_data.csproj",
         "projectName": "structure_data",
-        "projectPath": "c:\\Users\\mathe\\code\\structure_data\\structure_data.csproj",
-        "packagesPath": "C:\\Users\\mathe\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\mathe\\code\\structure_data\\obj\\",
+        "projectPath": "/home/m2dev/Documents/code/structure_data/.NET/structure_data.csproj",
+        "packagesPath": "/home/m2dev/.nuget/packages/",
+        "outputPath": "/home/m2dev/Documents/code/structure_data/.NET/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mathe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/m2dev/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

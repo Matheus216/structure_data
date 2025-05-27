@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9KAZhmFbE2tjsVphJlfRU6nBNuRYpAYcfVfHA2J4S3S1KxDHKeCygCrJyM06sshknKjlrbX3OihfhY7XwY0RbQ==",
+  "dgSpecHash": "qY4U+kCpWB57P5UPx9ghy34rSCNAGQiuHMNAECD3oZOJR1viAk9IemOJb37qcmPSrYn+GAT0KRADUoGEFJW82g==",
   "success": true,
-  "projectFilePath": "c:\\Users\\mathe\\code\\structure_data\\structure_data.csproj",
+  "projectFilePath": "/home/m2dev/Documents/code/structure_data/.NET/structure_data.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
