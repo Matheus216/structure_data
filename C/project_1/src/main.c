@@ -22,7 +22,8 @@ int* twoSum(int* nums, int numsSize, int target) {
 }
 
 int SearchInsert(int* nums, int target) {
-    int begin = 0, end = sizeof(nums) / sizeof(nums[0]); 
+    int sizeUnit = sizeof(nums[0]);
+    int begin = 0, end = sizeof(nums) / sizeUnit; 
 
     while (begin <= end) {
         int mid = (begin + end) / 2; 
@@ -47,6 +48,37 @@ void LeetCodeProblem() {
     printf("%d\n", response);
 }
 
+int calculation_diameter(binarytree *tree, int *diameter) {
+    if (!tree) return 0; 
+
+    int left = calculation_diameter(tree->left, diameter);
+    int right = calculation_diameter(tree->right, diameter);
+    
+    int path = left + right;
+    if (path > *diameter)
+        *diameter = path; 
+
+    return 1 + (left > right ? left : right);
+}
+
+void getDiameter(binarytree *tree) {
+    int diameter = 0;
+    int result = calculation_diameter(tree, &diameter);
+
+    printf("diameter of this tree: %d", result);
+}
+
+void getDiameterTree() {
+    binarytree *tree = createBinaryTree(3);
+
+    tree->left = createBinaryTree(9);
+    tree->right = createBinaryTree(20);
+    tree->left->left = createBinaryTree(15);
+    tree->left->right = createBinaryTree(7);
+
+    getDiameter(tree);
+}
+
 int main() {
     setlocale(LC_ALL, "Portuguese");
     binarytree *root = NULL; 
@@ -69,6 +101,7 @@ int main() {
         printf(" 12 - Calcule Sheets\n");
         printf(" 13 - Remove node\n");
         printf(" 14 - Huffman\n");
+        printf(" 15 - Calculation diameter\n");
         scanf("%d", &option); 
         
         printf("------------\n\n");
@@ -151,6 +184,9 @@ int main() {
             case 14:
                 printf("compacting..\n");
                 hoffman();
+            break;
+            case 15: 
+                getDiameterTree();
             break;
             default:
                 printf("Insere a valid value..\n");

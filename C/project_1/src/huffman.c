@@ -192,14 +192,15 @@ char* coding(
     return response;
 }
 
-char* decode(unsigned char textCoding[], Node *node) {
+char* decode(unsigned char *textCoding, Node *node) {
     
     printf("\nDecoding:\n");
     int index = 0;
     char tempStr[2];
     tempStr[1] = '\0';
+    int count = strlen(textCoding);
 
-    char *response = calloc(strlen(textCoding), sizeof(char));
+    char *response = calloc(count, sizeof(char));
     Node *temp = node;
     while (textCoding[index] != '\0') {
         if (textCoding[index] == '0')
@@ -245,8 +246,8 @@ void compact(unsigned char input[]) {
     fclose(file);
 }
 
-int isBitOne(unsigned char input, int count) {
-    unsigned char mask = input << count; 
+unsigned int isBitOne(unsigned char input, int count) {
+    unsigned char mask = (1 << count); 
     return input & mask; 
 }
 
@@ -262,7 +263,7 @@ void descompact(Node *root) {
     Node *aux = root; 
 
     while (fread(&byte, sizeof(unsigned char), 1, file)) {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 7; i >= 0; i--) {
             if (isBitOne(byte, i)) 
                 aux = aux->right;    
             else 

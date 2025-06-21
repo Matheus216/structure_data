@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = structure_data
-build_property.ProjectDir = /home/m2dev/Documents/code/structure_data/.NET/
+build_property.ProjectDir = /home/m2dev/Documents/code/structure_data/C#/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
