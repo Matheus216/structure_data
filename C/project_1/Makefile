@@ -10,4 +10,4 @@ $(OUT): $(SRC)
 	$(CC) -g $(CFLAGS) $(SRC) -o $(OUT)
 
 clean:
-	rm -rf bin
+		rm -rf bin
