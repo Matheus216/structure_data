@@ -1,4 +1,7 @@
 #include <vector>
+#include <stack>
+#include <iostream>
+#include <unordered_map>
 
 
 using namespace std; 
@@ -27,12 +30,25 @@ class Node {
 
 class Solution {
     public:
-    Node* cloneGraph(Node* graph) {
-        Node response;
+    Node* cloneGraph(Node* node) {
+        if (!node) {
+            return new Node();
+        }
 
+        unordered_map<Node*, Node*> map; 
+        return clone(node, map); 
+    }
+    Node* clone(Node* node, unordered_map<Node*, Node*>& map) {
+        if (map.find(node) != map.end()) {
+            return map[node]; 
+        }
 
+        Node* newNode = new Node(node->val); 
+        map[node] = newNode; 
 
-        return &response;
+        for (auto actual : node->neighbors) {
+            newNode->neighbors.push_back(clone(actual, map));
+        }
     }
 };
 
@@ -57,7 +73,7 @@ int main() {
     Node4.neighbors.push_back(&Node1);
     Node4.neighbors.push_back(&Node3);
 
-    solution.cloneGraph(&Node1);
+    auto response = solution.cloneGraph(&Node1);
 
     return 1; 
 }
